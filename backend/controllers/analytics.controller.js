@@ -1,7 +1,7 @@
 import { Lead } from "../models/Lead.js";
 import { Contact } from "../models/Contact.js";
 import { Task } from "../models/Task.js";
-import { asyncHandler } from "../utils/asynchandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const getOverview = asyncHandler(async (req, res) => {
     const owner = req.user._id;
