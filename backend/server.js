@@ -27,6 +27,13 @@ app.use(express.json({ limit: "1mb"}));
 app.use(express.urlencoded({ extended: true}));
 if (process.env.NODE_ENV !== "production") app.use(morgan("dev"));
 
+app.get("/", (req, res) => {
+    res.status(200).json({ 
+        status: "success", 
+        message: "AI CRM Dashboard API is live and healthy." 
+    });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 
