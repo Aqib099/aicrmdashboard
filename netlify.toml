@@ -1,0 +1,9 @@
+[build]
+  # Netlify to navigate into your frontend subdirectory
+  base = "frontend/AICRMDashboard"
+
+  # Run the build script inside that directory
+  command = "npm run build"
+
+  # Publish the final output folder (relative to the base path above)
+  publish = "dist"
