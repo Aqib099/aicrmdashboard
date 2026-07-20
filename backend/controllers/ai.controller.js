@@ -6,7 +6,6 @@ import { generateLeadSummary
     generateSalesInsight,
     isAiConfigured
  } from "../services/ai.services.js";
-import { json } from "express";
 
  const resolveLead = async (req) => {
     if (req.body.leadId) {
@@ -27,7 +26,7 @@ import { json } from "express";
  });
 
  export const leadSummary = asyncHandler(async (req, res) => {
-    const lead = resolveLead(req);
+    const lead = await resolveLead(req);
     const result = await generateLeadSummary(lead);
 
     if(req.body.leadId) {
@@ -76,12 +75,12 @@ import { json } from "express";
     }
 
     const won = byStage?.Won?.count || 0;
-    const lost = byStage.lost?.count || 0;
+    const lost = byStage.Lost?.count || 0;
     const closed = won + lost;
     return {
         totalLeads: leads.length,
         totalPipelineValue: totalValue,
-        winRate: closed ? Math.round((won / lost ) * 100) : 0,
+        winRate: closed ? Math.round((won / (won + lost) ) * 100) : 0,
         stages: byStage,
     };
  };

@@ -55,12 +55,9 @@ export const reorderLeads = asyncHandler(async (req, res) => {
     }
 
     await Promise.all(
-        updates.map((u) => {
-            Lead.updateOne(
-                {_id: u.id, owner: req.user._id},
-                {Sset: {status: u.status, order: u.order }}
-            )
-        })
+        updates.map((u) =>
+            Lead.updateOne({_id: u.id, owner: req.user._id}, {$set: {status: u.status, order: u.order}})
+        )
     );
 
     res.json({ success: true, message: "Pipeline updated" })
